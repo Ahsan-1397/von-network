@@ -334,11 +334,10 @@ async def register(request):
 
 async def boot(app):
     LOGGER.info("Creating trust anchor...")
-    init = app["anchor_init"] = app.loop.create_task(TRUST_ANCHOR.open())
-    init.add_done_callback(
+    app["anchor_init"] = asyncio.create_task(TRUST_ANCHOR.open())
+    app["anchor_init"].add_done_callback(
         lambda _task: LOGGER.info("--- Trust anchor initialized ---")
     )
-
 
 if __name__ == "__main__":
     APP.add_routes(ROUTES)

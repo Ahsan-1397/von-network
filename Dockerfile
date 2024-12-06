@@ -1,4 +1,4 @@
-FROM bcgovimages/von-image:node-1.12-6
+FROM ahsan57/von-image:node-1.12-6
 ARG user=indy
 ARG LOG_LEVEL=info
 ARG RUST_LOG=warning
@@ -8,6 +8,11 @@ ENV RUST_LOG=$RUST_LOG
 USER root
 RUN apt-get update -y && \
     apt-get install -y \
+    automake \
+    bison \
+    build-essential \
+    cmake \
+    flex \
     xz-utils
 USER $user
 
