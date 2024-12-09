@@ -10,9 +10,9 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   # Set default platform to linux/amd64 when running on Arm based MAC since there are no arm based images available currently.
   architecture=$(uname -m)
   if [[ "${architecture}" == 'arm'* ]] || [[ "${architecture}" == 'aarch'* ]]; then
-    export DOCKER_DEFAULT_PLATFORM=linux/amd64
+    export DOCKER_DEFAULT_PLATFORM=linux/arm64
   fi
-
+export DOCKER_DEFAULT_PLATFORM=linux/arm64
   # Set the date and stat options appropriatly for MAC OS.
   export TA_RATIFICATION_TIME_OPS='-jf '%Y-%m-%dT%H:%M:%S%Z' +%s '
   export STAT_OPS='-f '%A''
@@ -20,7 +20,7 @@ fi
 
 # getDockerHost; for details refer to https://github.com/bcgov/DITP-DevOps/tree/main/code/snippets#getdockerhost
 . /dev/stdin <<<"$(cat <(curl -s --raw https://raw.githubusercontent.com/bcgov/DITP-DevOps/main/code/snippets/getDockerHost))"
-export DOCKERHOST=172.17.0.1
+export DOCKERHOST=$(getDockerHost)
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
 export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-von}"

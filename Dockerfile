@@ -9,10 +9,6 @@ USER root
 RUN apt-get update -y && \
     apt-get install -y \
     build-essential \
-    automake \
-    bison \
-    flex \
-    cmake \
     xz-utils
 USER $user
 
